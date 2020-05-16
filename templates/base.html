@@ -64,8 +64,12 @@
             </div>
             <div class="navbar-nav">
                 {% with request.resolver_match.view_name as view_name %}
+                    {% for group in request.user.groups.all %}
+                    {% if group.name == 'epidemiologist' %}
                     <a class="nav-item nav-link{% if view_name == 'search-connections' %} active{% endif %}"
-                       href="{% url 'search-connections' %}">Search</a>
+                        href="{% url 'search-connections' %}">Search</a>
+                    {% endif %}
+                    {% endfor %}
                     <a class="nav-item nav-link{% if view_name == 'create-visit' or  view_name == 'create-location' or view_name == 'create-patient' %} active{% endif %}"
                        href="{% url 'create-patient' %}">Create</a>
                 {% endwith %}
